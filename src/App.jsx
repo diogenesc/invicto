@@ -378,12 +378,42 @@ export default function App() {
     ctx.font = '12px system-ui, -apple-system, sans-serif';
     ctx.fillText('INVICTO.club • Monte sua escalação histórica', 760, 770);
 
-    // Download PNG
-    const dataUrl = canvas.toDataURL('image/png');
-    const link = document.createElement('a');
-    link.download = `invicto-run-${streak}-vitorias.png`;
-    link.href = dataUrl;
-    link.click();
+    // Helper to download image as fallback
+    const triggerDownload = () => {
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `invicto-run-${streak}-vitorias.png`;
+      link.href = dataUrl;
+      link.click();
+    };
+
+    // Use Web Share API if supported, fallback to download
+    try {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          triggerDownload();
+          return;
+        }
+        const file = new File([blob], `invicto-run-${streak}-vitorias.png`, { type: 'image/png' });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+            files: [file],
+            title: 'Minha Campanha no Invicto',
+            text: `Fiquei ${streak} ${streak === 1 ? 'partida' : 'partidas'} invicto com meu time histórico no invicto.club! Desafie seus amigos!`,
+          }).catch((err) => {
+            console.error("Erro ao compartilhar", err);
+            // Se o usuário cancelar ou fechar o menu de compartilhamento, não forçamos o download
+          });
+        } else {
+          // Sem suporte para compartilhar arquivos (geralmente desktop), faz download
+          triggerDownload();
+        }
+      }, 'image/png');
+    } catch (e) {
+      console.error("Erro ao converter canvas", e);
+      triggerDownload();
+    }
   };
 
   return (
