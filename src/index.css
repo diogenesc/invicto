@@ -1146,11 +1146,49 @@ button {
   background-color: var(--bg-secondary);
   border-top: 1px solid var(--border-color);
   padding: 1rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
   font-size: 0.85rem;
   color: #94a3b8;
 }
 
+@media (max-width: 600px) {
+  .app-footer {
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1.25rem 1rem;
+  }
+}
+
 .app-footer strong {
+  color: var(--brazuca-yellow);
+}
+
+.header-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.github-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: #f1f5f9;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.github-link-btn:hover {
+  background-color: #334155;
+  border-color: #64748b;
   color: var(--brazuca-yellow);
 }
