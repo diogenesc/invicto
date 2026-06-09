@@ -1140,3 +1140,17 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+/* App Footer styling */
+.app-footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.app-footer strong {
+  color: var(--brazuca-yellow);
+}

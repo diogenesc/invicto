@@ -267,6 +267,9 @@ export default function App() {
           </div>
         )}
       </main>
+      <footer className="app-footer">
+        <p>Desenvolvido com ⚽ por <strong>diogenesc</strong></p>
+      </footer>
     </div>
   );
 }
