@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MainMenu from './components/MainMenu';
-import SoccerField from './components/SoccerField';
+import SoccerField, { POSITION_COORDINATES } from './components/SoccerField';
 import PlayerDraft from './components/PlayerDraft';
 import MatchEngine from './components/MatchEngine';
 import { getTeamRatings } from './utils/simulator';
@@ -144,6 +144,248 @@ export default function App() {
     return Object.values(lineup).filter(Boolean).length === expectedCount;
   };
 
+  const generateShareImage = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 800;
+    const ctx = canvas.getContext('2d');
+
+    // 1. Background (Forest Green Radial Gradient)
+    const bgGrad = ctx.createRadialGradient(400, 400, 50, 400, 400, 600);
+    bgGrad.addColorStop(0, '#115e3b');
+    bgGrad.addColorStop(1, '#062416');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 800, 800);
+
+    // 2. Header
+    // 2.1 Logo "INVICTO.club"
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 48px system-ui, -apple-system, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('INVICTO', 40, 60);
+    const logoWidth = ctx.measureText('INVICTO').width;
+    ctx.fillStyle = '#00ff87';
+    ctx.fillText('.club', 40 + logoWidth, 60);
+
+    // 2.2 Gold Badge "🏆 FICOU X PARTIDAS INVICTO!"
+    ctx.font = '800 20px system-ui, -apple-system, sans-serif';
+    const badgeText = `🏆 FICOU ${streak} ${streak === 1 ? 'PARTIDA' : 'PARTIDAS'} INVICTO!`;
+    const textWidth = ctx.measureText(badgeText).width;
+    const badgeWidth = textWidth + 40;
+    const badgeHeight = 50;
+    const badgeX = 760 - badgeWidth;
+    const badgeY = 35;
+
+    // Draw gold badge background
+    const goldGrad = ctx.createLinearGradient(badgeX, badgeY, badgeX + badgeWidth, badgeY);
+    goldGrad.addColorStop(0, '#eab308');
+    goldGrad.addColorStop(1, '#ca8a04');
+    ctx.fillStyle = goldGrad;
+    ctx.beginPath();
+    if (ctx.roundRect) {
+      ctx.roundRect(badgeX, badgeY, badgeWidth, badgeHeight, 25);
+    } else {
+      // Fallback
+      ctx.moveTo(badgeX + 25, badgeY);
+      ctx.arcTo(badgeX + badgeWidth, badgeY, badgeX + badgeWidth, badgeY + badgeHeight, 25);
+      ctx.arcTo(badgeX + badgeWidth, badgeY + badgeHeight, badgeX, badgeY + badgeHeight, 25);
+      ctx.arcTo(badgeX, badgeY + badgeHeight, badgeX, badgeY, 25);
+      ctx.arcTo(badgeX, badgeY, badgeX + badgeWidth, badgeY, 25);
+    }
+    ctx.fill();
+
+    // Gold badge text
+    ctx.fillStyle = '#052e16';
+    ctx.textAlign = 'center';
+    ctx.fillText(badgeText, badgeX + badgeWidth / 2, badgeY + badgeHeight / 2);
+
+    // 3. Mini-Pitch
+    const pitchX = 40;
+    const pitchY = 150;
+    const pitchWidth = 380;
+    const pitchHeight = 580;
+
+    // Pitch markings outer boundary
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(pitchX, pitchY, pitchWidth, pitchHeight);
+
+    // Center line
+    ctx.beginPath();
+    ctx.moveTo(pitchX, pitchY + pitchHeight / 2);
+    ctx.lineTo(pitchX + pitchWidth, pitchY + pitchHeight / 2);
+    ctx.stroke();
+
+    // Center circle
+    ctx.beginPath();
+    ctx.arc(pitchX + pitchWidth / 2, pitchY + pitchHeight / 2, 50, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Penalty areas
+    ctx.strokeRect(pitchX + pitchWidth / 4, pitchY, pitchWidth / 2, 80);
+    ctx.strokeRect(pitchX + pitchWidth / 4, pitchY + pitchHeight - 80, pitchWidth / 2, 80);
+
+    // Goal areas
+    ctx.strokeRect(pitchX + pitchWidth * 3/8, pitchY, pitchWidth / 4, 30);
+    ctx.strokeRect(pitchX + pitchWidth * 3/8, pitchY + pitchHeight - 30, pitchWidth / 4, 30);
+
+    // 4. Draw players from lineup
+    const coords = POSITION_COORDINATES[formation] || POSITION_COORDINATES['4-3-3'];
+    Object.keys(coords).forEach(slot => {
+      const player = lineup[slot];
+      if (!player) return;
+
+      const relativeLeft = parseFloat(coords[slot].left) / 100;
+      const relativeTop = parseFloat(coords[slot].top) / 100;
+
+      const playerX = pitchX + relativeLeft * pitchWidth;
+      const playerY = pitchY + relativeTop * pitchHeight;
+
+      // Circular Badge background
+      ctx.beginPath();
+      ctx.arc(playerX, playerY, 20, 0, Math.PI * 2);
+
+      if (player.legend) {
+        const playerGoldGrad = ctx.createLinearGradient(playerX - 20, playerY - 20, playerX + 20, playerY + 20);
+        playerGoldGrad.addColorStop(0, '#fef08a');
+        playerGoldGrad.addColorStop(0.5, '#eab308');
+        playerGoldGrad.addColorStop(1, '#854d0e');
+        ctx.fillStyle = playerGoldGrad;
+        ctx.fill();
+        ctx.fillStyle = '#1e1b4b';
+      } else {
+        ctx.fillStyle = '#0f172a';
+        ctx.fill();
+        ctx.strokeStyle = '#00ff87';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#00ff87';
+      }
+
+      // Rating inside circle
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
+      ctx.fillText(player.force.toString(), playerX, playerY);
+
+      // Player Name label below
+      ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      // Stroke for readability
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
+      ctx.lineWidth = 3;
+      ctx.strokeText(player.name, playerX, playerY + 24);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(player.name, playerX, playerY + 24);
+    });
+
+    // 5. Stats Badges on the right side
+    const drawStatCard = (y, label, value) => {
+      const x = 460;
+      const w = 300;
+      const h = 80;
+
+      // Card background
+      ctx.fillStyle = '#131926';
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      if (ctx.roundRect) {
+        ctx.roundRect(x, y, w, h, 8);
+      } else {
+        ctx.rect(x, y, w, h);
+      }
+      ctx.fill();
+      ctx.stroke();
+
+      // Label
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+      ctx.fillText(label.toUpperCase(), x + 20, y + h / 2);
+
+      // Value
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#00ff87';
+      ctx.font = 'bold 36px system-ui, -apple-system, sans-serif';
+      ctx.fillText(value.toString(), x + w - 20, y + h / 2);
+    };
+
+    drawStatCard(150, 'Rating Geral', teamStats.overall);
+    drawStatCard(245, 'Força de Ataque', teamStats.att);
+    drawStatCard(340, 'Força de Defesa', teamStats.def);
+
+    // 6. Last 5 match results
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = 'bold 14px system-ui, -apple-system, sans-serif';
+    ctx.fillText('HISTÓRICO DA CAMPANHA', 460, 445);
+
+    const lastMatches = history.slice(-5);
+    const startRowY = 475;
+    lastMatches.forEach((h, idx) => {
+      const rowY = startRowY + idx * 45;
+      const circleX = 460 + 15;
+      const circleY = rowY + 15;
+
+      // Circle badge for outcome
+      ctx.beginPath();
+      ctx.arc(circleX, circleY, 12, 0, Math.PI * 2);
+      if (h.outcome === 'invicto') {
+        ctx.fillStyle = 'rgba(0, 255, 135, 0.15)';
+        ctx.fill();
+        ctx.strokeStyle = '#00ff87';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.fillStyle = '#00ff87';
+        ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('✓', circleX, circleY);
+      } else {
+        ctx.fillStyle = 'rgba(239, 68, 68, 0.15)';
+        ctx.fill();
+        ctx.strokeStyle = '#ef4444';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.fillStyle = '#ef4444';
+        ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('✕', circleX, circleY);
+      }
+
+      // Match text
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#f1f5f9';
+      ctx.font = '500 13px system-ui, -apple-system, sans-serif';
+
+      const matchText = `Seu Time ${h.userScore} – ${h.oppScore} ${h.opponentFlag || ''} ${h.opponentName}`;
+      ctx.fillText(matchText, 500, circleY);
+    });
+
+    // 7. Watermark / Credit
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'bottom';
+    ctx.fillStyle = '#64748b';
+    ctx.font = '12px system-ui, -apple-system, sans-serif';
+    ctx.fillText('INVICTO.club • Monte sua escalação histórica', 760, 770);
+
+    // Download PNG
+    const dataUrl = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = `invicto-run-${streak}-vitorias.png`;
+    link.href = dataUrl;
+    link.click();
+  };
+
   return (
     <div className="app-layout">
       {/* Header global */}
@@ -259,6 +501,9 @@ export default function App() {
               </div>
 
               <div className="gameover-actions">
+                <button className="share-btn" onClick={generateShareImage}>
+                  Compartilhar Campanha 📸
+                </button>
                 <button className="play-again-btn" onClick={handleRestart}>
                   Jogar Novamente 🔄
                 </button>

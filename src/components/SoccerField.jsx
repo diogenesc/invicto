@@ -1,6 +1,6 @@
 import React from 'react';
 
-const POSITION_COORDINATES = {
+export const POSITION_COORDINATES = {
   '4-3-3': {
     GK: { top: '85%', left: '50%' },
     LB: { top: '65%', left: '15%' },
