@@ -380,9 +380,9 @@ export default function App() {
 
     // Helper to download image as fallback
     const triggerDownload = () => {
-      const dataUrl = canvas.toDataURL('image/png');
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
       const link = document.createElement('a');
-      link.download = `invicto-run-${streak}-vitorias.png`;
+      link.download = `invicto-run-${streak}-vitorias.jpg`;
       link.href = dataUrl;
       link.click();
     };
@@ -394,7 +394,7 @@ export default function App() {
           triggerDownload();
           return;
         }
-        const file = new File([blob], `invicto-run-${streak}-vitorias.png`, { type: 'image/png' });
+        const file = new File([blob], `invicto-run-${streak}-vitorias.jpg`, { type: 'image/jpeg' });
 
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           navigator.share({
@@ -409,7 +409,7 @@ export default function App() {
           // Sem suporte para compartilhar arquivos (geralmente desktop), faz download
           triggerDownload();
         }
-      }, 'image/png');
+      }, 'image/jpeg', 0.8);
     } catch (e) {
       console.error("Erro ao converter canvas", e);
       triggerDownload();
