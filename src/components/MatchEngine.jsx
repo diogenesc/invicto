@@ -35,7 +35,8 @@ export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, 
     setVisibleEvents([]);
     setUserScore(0);
     setOppScore(0);
-    setIsSimulating(false);
+    const savedMode = localStorage.getItem('invicto_sim_mode') || 'auto';
+    setIsSimulating(savedMode === 'auto');
   }, [lineup, playingStyle, streak]);
 
   // Scrolla automaticamente para o final do log de eventos
@@ -84,6 +85,7 @@ export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, 
   const handleManualStep = () => {
     setMode('manual');
     localStorage.setItem('invicto_sim_mode', 'manual');
+    setIsSimulating(false);
     if (minute >= 90 || !matchResult) return;
 
     // Avança 5 minutos virtuais de cada vez no manual para não ficar exaustivo

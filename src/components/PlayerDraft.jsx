@@ -133,7 +133,7 @@ export default function PlayerDraft({
                   <button
                     key={player.id}
                     disabled={isUnavailable}
-                    className={`player-draft-card ${isSelected ? 'selected' : ''} ${player.legend ? 'legend' : ''} ${isUnavailable ? 'disabled' : ''}`}
+                    className={`player-draft-card ${isSelected ? 'selected' : ''} ${player.legend && !shouldHideForce ? 'legend' : ''} ${isUnavailable ? 'disabled' : ''}`}
                     onClick={() => handleSelectPlayer(player)}
                   >
                     <div className="player-card-num">#{player.number}</div>

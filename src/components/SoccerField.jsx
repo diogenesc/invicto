@@ -110,7 +110,7 @@ export default function SoccerField({ formation, lineup, activePlayer, onSelectS
         return (
           <div
             key={slot}
-            className={`pitch-slot ${player ? 'filled' : 'empty'} ${isPickable ? 'pickable' : ''} ${player?.legend ? 'legend' : ''}`}
+            className={`pitch-slot ${player ? 'filled' : 'empty'} ${isPickable ? 'pickable' : ''} ${player?.legend && !(gameMode === 'craque' && !revealed) ? 'legend' : ''}`}
             style={{
               top: coords.top,
               left: coords.left,
