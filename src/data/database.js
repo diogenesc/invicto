@@ -336,9 +336,9 @@ export const BR_TEAMS = [
       { id: "romulo-2011", name: "Rômulo", positions: ["VOL"], number: 5, force: 81, legend: false },
       { id: "jumar-2011", name: "Jumar", positions: ["VOL", "MC"], number: 8, force: 77, legend: false },
       { id: "allan-2011", name: "Allan", positions: ["MC", "LD"], number: 15, force: 80, legend: false },
-      { id: "felipe-2011", name: "Felipe", positions: ["MEI", "LE"], number: 6, force: 85, legend: true },
+      { id: "felipe-2011", name: "Felipe", positions: ["MEI", "LE"], number: 16, force: 85, legend: true },
       { id: "diego-souza-2011", name: "Diego Souza", positions: ["MEI", "CA"], number: 10, force: 86, legend: true },
-      { id: "aleandro-2011", name: "Alecsandro", positions: ["CA"], number: 9, force: 81, legend: false }
+      { id: "alecsandro-2011", name: "Alecsandro", positions: ["CA"], number: 9, force: 81, legend: false }
     ]
   },
   {
@@ -364,7 +364,7 @@ export const BR_TEAMS = [
     id: "bahia-1988",
     name: "Bahia",
     year: 1988,
-    flag: "🇧🇦",
+    flag: "🔵🔴",
     squad: [
       { id: "ronaldo-1988", name: "Ronaldo", positions: ["GOL"], number: 1, force: 82, legend: false },
       { id: "tarantini-1988", name: "Tarantini", positions: ["LD"], number: 2, force: 79, legend: false },
@@ -412,7 +412,7 @@ export const BR_TEAMS = [
       { id: "cleber-2005", name: "Cléber Gaúcho", positions: ["VOL"], number: 5, force: 79, legend: false },
       { id: "amaral-2005", name: "Amaral", positions: ["VOL"], number: 8, force: 78, legend: false },
       { id: "tabata-2005", name: "Rodrigo Tabata", positions: ["MEI"], number: 10, force: 83, legend: false },
-      { id: "danilo-2005", name: "Danilo", positions: ["MEI", "PE"], number: 7, force: 81, legend: false },
+      { id: "baier-2005", name: "Paulo Baier", positions: ["MEI", "LD"], number: 7, force: 86, legend: true },
       { id: "roni-2005", name: "Roni", positions: ["CA"], number: 9, force: 80, legend: false },
       { id: "souza-2005", name: "Souza", positions: ["CA"], number: 11, force: 85, legend: true }
     ]
