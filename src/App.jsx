@@ -11,6 +11,14 @@ import LeagueEnd from './components/LeagueEnd';
 
 const LOCAL_STORAGE_KEY = 'invicto_draft_state';
 
+const SLOT_LABEL_MAP = {
+  GK: 'GOL', LB: 'LE', RB: 'LD', CB1: 'ZAG', CB2: 'ZAG', CB3: 'ZAG',
+  DM: 'VOL', VOL1: 'VOL', VOL2: 'VOL', CM: 'MC', MC: 'MC',
+  AM: 'MEI', MEI: 'MEI', MEI1: 'MEI', MEI2: 'MEI',
+  LW: 'PE', PE: 'PE', RW: 'PD', PD: 'PD',
+  ST: 'CA', CA: 'CA', CA1: 'CA', CA2: 'CA'
+};
+
 const loadSavedState = () => {
   try {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -115,8 +123,26 @@ export default function App() {
   };
 
   const handleRoll = () => {
-    // Sorteia um time e ano aleatórios
-    const randomTeam = BR_TEAMS[Math.floor(Math.random() * BR_TEAMS.length)];
+    // Determina os labels de posições ainda disponíveis no lineup
+    const slots = Object.keys(POSITION_COORDINATES[formation] || POSITION_COORDINATES['4-3-3']);
+    const availableLabels = slots.filter(slot => !lineup[slot]).map(slot => SLOT_LABEL_MAP[slot]);
+    
+    // Lista de IDs dos jogadores já escalados
+    const escaladosIds = Object.values(lineup).filter(Boolean).map(p => p.id);
+
+    // Filtra equipes que possuem pelo menos um jogador elegível para os slots livres
+    const validTeams = BR_TEAMS.filter(team => {
+      return team.squad.some(player => {
+        const isEscalado = escaladosIds.includes(player.id);
+        const hasAvailableSlot = player.positions.some(pos => availableLabels.includes(pos));
+        return !isEscalado && hasAvailableSlot;
+      });
+    });
+
+    // Fallback de segurança (caso validTeams seja vazio, o que é teoricamente improvável)
+    const teamsToChooseFrom = validTeams.length > 0 ? validTeams : BR_TEAMS;
+
+    const randomTeam = teamsToChooseFrom[Math.floor(Math.random() * teamsToChooseFrom.length)];
     setCurrentDraw(randomTeam);
     setSelectedPlayer(null);
   };
