@@ -18,6 +18,11 @@ const MODES = [
   { id: 'craque', name: 'Modo Craque ✨', desc: 'Atributos e médias ocultos por 🔒 até fechar os 11 titulares' }
 ];
 
+const CAMPAIGNS = [
+  { id: 'streak', name: 'Sobrevivência (Invicto Run)', desc: 'Jogue partidas consecutivas até sofrer sua primeira derrota' },
+  { id: 'league', name: 'Campeonato Brasileiro (Série A)', desc: 'Dispute uma liga completa de 38 rodadas com tabela de classificação' }
+];
+
 export default function MainMenu({
   formation,
   setFormation = () => {},
@@ -25,6 +30,8 @@ export default function MainMenu({
   setPlayingStyle = () => {},
   gameMode = 'normal',
   setGameMode = () => {},
+  campaignMode = 'streak',
+  setCampaignMode = () => {},
   onStart = () => {}
 }) {
   return (
@@ -32,7 +39,7 @@ export default function MainMenu({
       <div className="menu-logo">
         <div className="logo-badge">BRASILEIRÃO</div>
         <h1>INVICTO</h1>
-        <p className="subtitle">Brasileirão Pontos Corridos · 2003 — 2025</p>
+        <p className="subtitle">Montador de Esquadrões Históricos</p>
       </div>
 
       <div className="menu-section">
@@ -83,12 +90,28 @@ export default function MainMenu({
         </div>
       </div>
 
+      <div className="menu-section">
+        <h3>4. Escolha o Formato da Campanha</h3>
+        <div className="options-grid">
+          {CAMPAIGNS.map(c => (
+            <button
+              key={c.id}
+              className={`menu-option-card ${campaignMode === c.id ? 'active' : ''}`}
+              onClick={() => setCampaignMode(c.id)}
+            >
+              <div className="option-title">{c.name}</div>
+              <div className="option-desc">{c.desc}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <button className="start-game-btn" onClick={onStart}>
-        INICIAR INVICTO RUN 🎲
+        {campaignMode === 'league' ? 'INICIAR BRASILEIRÃO 🏆' : 'INICIAR INVICTO RUN 🎲'}
       </button>
 
       <div className="menu-footer">
-        <p>Desenhe seu time rodando o dado, escale lendas do futebol brasileiro e veja quantas rodadas consegue ficar invicto!</p>
+        <p>Escale lendas e esquadrões clássicos de 2003 a 2025 para provar que você é o melhor estrategista do Brasileirão!</p>
       </div>
     </div>
   );

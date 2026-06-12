@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { generateOpponent, simulateMatch } from '../utils/simulator';
 
-export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, onMatchLoss }) {
+export default function MatchEngine({
+  lineup,
+  playingStyle,
+  streak,
+  onMatchWin,
+  onMatchLoss,
+  campaignMode = 'streak',
+  onFinishLeagueMatch = () => {}
+}) {
   const [opponent, setOpponent] = useState(null);
   const [matchResult, setMatchResult] = useState(null);
   const [minute, setMinute] = useState(0);
@@ -113,12 +121,16 @@ export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, 
   };
 
   const handleFinishMatch = () => {
-    if (userScore >= oppScore) {
-      // Vitória ou empate mantém o time invicto
-      onMatchWin(userScore, oppScore, opponent);
+    if (campaignMode === 'league') {
+      onFinishLeagueMatch(userScore, oppScore, opponent);
     } else {
-      // Derrota encerra a campanha
-      onMatchLoss(userScore, oppScore, opponent);
+      if (userScore >= oppScore) {
+        // Vitória ou empate mantém o time invicto
+        onMatchWin(userScore, oppScore, opponent);
+      } else {
+        // Derrota encerra a campanha
+        onMatchLoss(userScore, oppScore, opponent);
+      }
     }
   };
 
@@ -200,7 +212,9 @@ export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, 
               </div>
             )}
             <button className="finish-match-btn" onClick={handleFinishMatch}>
-              {userScore >= oppScore ? 'PROSSEGUIR RUN ➔' : 'VER RESULTADO FINAL ➔'}
+              {campaignMode === 'league'
+                ? 'AVANÇAR RODADA ➔'
+                : (userScore >= oppScore ? 'PROSSEGUIR RUN ➔' : 'VER RESULTADO FINAL ➔')}
             </button>
           </div>
         )}

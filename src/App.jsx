@@ -5,6 +5,9 @@ import PlayerDraft from './components/PlayerDraft';
 import MatchEngine from './components/MatchEngine';
 import { getTeamRatings } from './utils/simulator';
 import { BR_TEAMS } from './data/database';
+import { selectLeagueOpponents, generateSchedule, simulateCpuMatch, sortStandings } from './utils/league';
+import LeagueHub from './components/LeagueHub';
+import LeagueEnd from './components/LeagueEnd';
 
 const LOCAL_STORAGE_KEY = 'invicto_draft_state';
 
@@ -34,6 +37,12 @@ export default function App() {
   const [selectedPlayer, setSelectedPlayer] = useState(savedState.selectedPlayer || null);
   const [gameMode, setGameMode] = useState(savedState.gameMode || 'normal');
   const [revealed, setRevealed] = useState(savedState.revealed || false);
+  const [campaignMode, setCampaignMode] = useState(savedState.campaignMode || 'streak');
+  const [leagueOpponents, setLeagueOpponents] = useState(savedState.leagueOpponents || []);
+  const [leagueStandings, setLeagueStandings] = useState(savedState.leagueStandings || []);
+  const [leagueSchedule, setLeagueSchedule] = useState(savedState.leagueSchedule || []);
+  const [currentRound, setCurrentRound] = useState(savedState.currentRound !== undefined ? savedState.currentRound : 0);
+  const [roundResults, setRoundResults] = useState(savedState.roundResults || []);
 
   // Salva o estado no localStorage a cada mudança
   useEffect(() => {
@@ -48,14 +57,20 @@ export default function App() {
       currentDraw,
       selectedPlayer,
       gameMode,
-      revealed
+      revealed,
+      campaignMode,
+      leagueOpponents,
+      leagueStandings,
+      leagueSchedule,
+      currentRound,
+      roundResults
     };
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
     } catch (e) {
       console.error("Error saving state", e);
     }
-  }, [screen, formation, playingStyle, lineup, reRolls, streak, history, currentDraw, selectedPlayer, gameMode, revealed]);
+  }, [screen, formation, playingStyle, lineup, reRolls, streak, history, currentDraw, selectedPlayer, gameMode, revealed, campaignMode, leagueOpponents, leagueStandings, leagueSchedule, currentRound, roundResults]);
 
   // Calcula estatísticas gerais da equipe atual
   const teamStats = getTeamRatings(lineup);
@@ -68,6 +83,34 @@ export default function App() {
     setCurrentDraw(null);
     setSelectedPlayer(null);
     setRevealed(false);
+
+    if (campaignMode === 'league') {
+      const opps = selectLeagueOpponents();
+      setLeagueOpponents(opps);
+      
+      const userTeam = { id: 'user', name: 'Seu Time', flag: '🏆', overall: 50, att: 50, def: 50 };
+      const teams = [userTeam, ...opps];
+      const initialStandings = teams.map(t => ({
+        id: t.id,
+        name: t.name,
+        flag: t.flag,
+        year: t.year || '',
+        points: 0,
+        played: 0,
+        wins: 0,
+        draws: 0,
+        losses: 0,
+        goalsFor: 0,
+        goalsAgainst: 0,
+        goalDifference: 0
+      }));
+      const schedule = generateSchedule(teams);
+      setLeagueStandings(initialStandings);
+      setLeagueSchedule(schedule);
+      setCurrentRound(0);
+      setRoundResults([]);
+    }
+
     setScreen('draft');
   };
 
@@ -109,7 +152,103 @@ export default function App() {
   };
 
   const handleStartSimulation = () => {
-    setScreen('simulation');
+    if (campaignMode === 'league') {
+      const stats = getTeamRatings(lineup);
+      setLeagueStandings(prev => prev.map(t => {
+        if (t.id === 'user') {
+          return { ...t, att: stats.att, def: stats.def, overall: stats.overall };
+        }
+        return t;
+      }));
+      setLeagueSchedule(prev => prev.map(round => {
+        return round.map(match => {
+          const home = match.home.id === 'user' ? { ...match.home, att: stats.att, def: stats.def, overall: stats.overall } : match.home;
+          const away = match.away.id === 'user' ? { ...match.away, att: stats.att, def: stats.def, overall: stats.overall } : match.away;
+          return { home, away };
+        });
+      }));
+      setScreen('league_hub');
+    } else {
+      setScreen('simulation');
+    }
+  };
+
+  const handleFinishLeagueMatch = (userScore, oppScore, opponent) => {
+    const currentRoundMatches = leagueSchedule[currentRound] || [];
+    const simulatedResults = [];
+
+    // Registra o jogo do usuário
+    const userMatchInfo = currentRoundMatches.find(m => m.home.id === 'user' || m.away.id === 'user');
+    if (userMatchInfo) {
+      const userIsHome = userMatchInfo.home.id === 'user';
+      simulatedResults.push({
+        homeId: userMatchInfo.home.id,
+        homeName: userMatchInfo.home.name,
+        homeFlag: userMatchInfo.home.flag,
+        awayId: userMatchInfo.away.id,
+        awayName: userMatchInfo.away.name,
+        awayFlag: userMatchInfo.away.flag,
+        homeScore: userIsHome ? userScore : oppScore,
+        awayScore: userIsHome ? oppScore : userScore
+      });
+    }
+
+    // Simula os outros 9 confrontos
+    currentRoundMatches.forEach(match => {
+      if (match.home.id === 'user' || match.away.id === 'user') return;
+      
+      const { scoreA, scoreB } = simulateCpuMatch(match.home, match.away);
+      simulatedResults.push({
+        homeId: match.home.id,
+        homeName: match.home.name,
+        homeFlag: match.home.flag,
+        awayId: match.away.id,
+        awayName: match.away.name,
+        awayFlag: match.away.flag,
+        homeScore: scoreA,
+        awayScore: scoreB
+      });
+    });
+
+    // Atualiza a tabela classificatória
+    setLeagueStandings(prevStandings => {
+      const updated = prevStandings.map(team => {
+        const match = simulatedResults.find(m => m.homeId === team.id || m.awayId === team.id);
+        if (!match) return team;
+
+        const isHome = match.homeId === team.id;
+        const myScore = isHome ? match.homeScore : match.awayScore;
+        const opScore = isHome ? match.awayScore : match.homeScore;
+
+        const won = myScore > opScore ? 1 : 0;
+        const drawn = myScore === opScore ? 1 : 0;
+        const lost = myScore < opScore ? 1 : 0;
+        const pts = won * 3 + drawn;
+
+        return {
+          ...team,
+          played: team.played + 1,
+          wins: team.wins + won,
+          draws: team.draws + drawn,
+          losses: team.losses + lost,
+          goalsFor: team.goalsFor + myScore,
+          goalsAgainst: team.goalsAgainst + opScore,
+          goalDifference: team.goalDifference + (myScore - opScore),
+          points: team.points + pts
+        };
+      });
+      return sortStandings(updated);
+    });
+
+    setRoundResults(simulatedResults);
+
+    const nextRound = currentRound + 1;
+    if (nextRound >= 38) {
+      setScreen('league_end');
+    } else {
+      setCurrentRound(nextRound);
+      setScreen('league_hub');
+    }
   };
 
   const handleMatchWin = (userScore, oppScore, opponent) => {
@@ -454,6 +593,8 @@ export default function App() {
             onStart={handleStartGame}
             gameMode={gameMode}
             setGameMode={setGameMode}
+            campaignMode={campaignMode}
+            setCampaignMode={setCampaignMode}
           />
         )}
 
@@ -489,7 +630,7 @@ export default function App() {
               
               {isLineupComplete() && (gameMode !== 'craque' || revealed) && (
                 <button className="go-simulate-btn animate-pulse" onClick={handleStartSimulation}>
-                  INICIAR SIMULAÇÃO DO INVICTO RUN ➔
+                  {campaignMode === 'league' ? 'INICIAR CAMPEONATO DO BRASILEIRÃO ➔' : 'INICIAR SIMULAÇÃO DO INVICTO RUN ➔'}
                 </button>
               )}
             </div>
@@ -503,6 +644,25 @@ export default function App() {
             streak={streak}
             onMatchWin={handleMatchWin}
             onMatchLoss={handleMatchLoss}
+            campaignMode={campaignMode}
+            onFinishLeagueMatch={handleFinishLeagueMatch}
+          />
+        )}
+
+        {screen === 'league_hub' && (
+          <LeagueHub
+            standings={leagueStandings}
+            schedule={leagueSchedule}
+            currentRound={currentRound}
+            onStartMatch={() => setScreen('simulation')}
+            roundResults={roundResults}
+          />
+        )}
+
+        {screen === 'league_end' && (
+          <LeagueEnd
+            standings={leagueStandings}
+            onRestart={handleRestart}
           />
         )}
 

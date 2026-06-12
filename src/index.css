@@ -1229,3 +1229,480 @@ button {
   border-color: #64748b;
   color: var(--brazuca-yellow);
 }
+
+/* Brasileirao League Mode styling */
+
+.league-hub-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.league-header {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.league-header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00ff87, #eab308);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.round-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.round-indicator span {
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.progress-bar-container {
+  width: 180px;
+  height: 6px;
+  background-color: #1e293b;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff87, #eab308);
+  transition: width 0.3s ease;
+}
+
+.league-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 1.5rem;
+}
+
+@media (max-width: 950px) {
+  .league-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.standings-card {
+  padding: 1.5rem;
+}
+
+.standings-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.standings-table th, .standings-table td {
+  padding: 0.75rem 0.6rem;
+  border-bottom: 1px solid #1e293b;
+}
+
+.standings-table th {
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.col-pos {
+  width: 40px;
+  text-align: center;
+}
+
+.col-team {
+  min-width: 180px;
+}
+
+.col-stat {
+  width: 45px;
+  text-align: center;
+}
+
+.col-stat.highlighted {
+  color: #f1f5f9;
+}
+
+.team-pos {
+  text-align: center;
+}
+
+.pos-badge {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #1e293b;
+  color: #94a3b8;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.team-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.team-flag {
+  font-size: 1.1rem;
+}
+
+.team-year {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 400;
+}
+
+.team-stat {
+  text-align: center;
+}
+
+.team-stat.points {
+  font-weight: 800;
+  color: #eab308;
+}
+
+.team-stat.diff {
+  font-weight: 700;
+}
+
+.standings-table tr.user-row {
+  background-color: rgba(0, 255, 135, 0.06);
+  box-shadow: inset 3px 0 0 #00ff87;
+}
+
+.standings-table tr.user-row .pos-badge {
+  background-color: #00ff87;
+  color: #052e16;
+}
+
+.standings-table tr.user-row .team-name {
+  color: #00ff87;
+}
+
+/* Zonas de classificação (G4 / Z4) */
+.standings-table tr.zone-g4 {
+  box-shadow: inset 3px 0 0 #22c55e;
+}
+.standings-table tr.zone-z4 {
+  box-shadow: inset 3px 0 0 #ef4444;
+}
+
+.table-legend {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.legend-dot.g4 { background-color: #22c55e; }
+.legend-dot.z4 { background-color: #ef4444; }
+
+.league-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-section-title {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+}
+
+.next-match-card {
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.next-match-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+
+.vs-team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.vs-team .team-icon {
+  font-size: 2rem;
+}
+
+.vs-team .team-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.vs-team .team-year {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+.vs-badge {
+  background-color: #1e293b;
+  color: #f1f5f9;
+  font-size: 0.7rem;
+  font-weight: 800;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #334155;
+}
+
+.match-info-text {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-bottom: 1.2rem;
+}
+
+.start-round-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #00ff87, #059669);
+  color: #052e16;
+  font-weight: 800;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.start-round-btn:hover {
+  transform: translateY(-2px);
+}
+
+.round-results-card {
+  padding: 1.25rem;
+}
+
+.results-scroll {
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-right: 0.2rem;
+}
+
+.results-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.results-scroll::-webkit-scrollbar-thumb {
+  background-color: #1e293b;
+  border-radius: 2px;
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.5rem;
+  background-color: rgba(30, 41, 59, 0.2);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.result-row.highlighted {
+  background-color: rgba(0, 255, 135, 0.05);
+  border-color: rgba(0, 255, 135, 0.2);
+}
+
+.res-team {
+  font-weight: 600;
+}
+
+.res-team.home {
+  text-align: right;
+}
+
+.res-team.away {
+  text-align: left;
+}
+
+.res-score {
+  text-align: center;
+  font-weight: 800;
+  color: #f1f5f9;
+  background-color: #0f172a;
+  padding: 0.15rem 0.3rem;
+  border-radius: 4px;
+}
+
+/* League End Screen */
+
+.league-end-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+.league-end-card {
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.outcome-badge-status {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.3rem 0.8rem;
+  border-radius: 30px;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+}
+
+.outcome-badge-status.gold {
+  background-color: rgba(234, 179, 8, 0.15);
+  color: #fef08a;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.outcome-badge-status.green {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.outcome-badge-status.red {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.outcome-badge-status.neutral {
+  background-color: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.league-end-card h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #f1f5f9;
+  margin-bottom: 1rem;
+}
+
+.outcome-description {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  max-width: 550px;
+  margin: 0 auto 2rem auto;
+  line-height: 1.5;
+}
+
+.final-stats-mini {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.final-standings-section {
+  text-align: left;
+  margin-bottom: 2rem;
+  border-top: 1px solid #1e293b;
+  padding-top: 2rem;
+}
+
+.final-standings-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+}
+
+.standings-table.final-table {
+  font-size: 0.8rem;
+}
+
+.league-end-actions {
+  margin-top: 2rem;
+}
+
+/* Animação de Confetes em CSS */
+
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  border-radius: 2px;
+  animation: confetti-fall linear infinite;
+  transform-origin: left top;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105vh) rotate(360deg);
+    opacity: 0;
+  }
+}
