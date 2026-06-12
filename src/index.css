@@ -798,11 +798,16 @@ button {
 }
 
 .score-numbers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-size: 2.8rem;
   font-weight: 900;
   letter-spacing: 0.05em;
   color: #f1f5f9;
   line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .score-minute {
@@ -828,6 +833,24 @@ button {
 
 @keyframes blink {
   50% { opacity: 0.6; }
+}
+
+@media (max-width: 480px) {
+  .scoreboard-flex {
+    gap: 0.5rem;
+  }
+  .score-numbers {
+    font-size: 2rem;
+  }
+  .score-name {
+    font-size: 0.85rem;
+    white-space: normal;
+    text-align: center;
+    word-break: break-word;
+  }
+  .score-flag {
+    font-size: 1.5rem;
+  }
 }
 
 .match-controls {
