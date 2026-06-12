@@ -32,6 +32,8 @@ export default function App() {
   // Estado do draft atual
   const [currentDraw, setCurrentDraw] = useState(savedState.currentDraw || null);
   const [selectedPlayer, setSelectedPlayer] = useState(savedState.selectedPlayer || null);
+  const [gameMode, setGameMode] = useState(savedState.gameMode || 'normal');
+  const [revealed, setRevealed] = useState(savedState.revealed || false);
 
   // Salva o estado no localStorage a cada mudança
   useEffect(() => {
@@ -44,14 +46,16 @@ export default function App() {
       streak,
       history,
       currentDraw,
-      selectedPlayer
+      selectedPlayer,
+      gameMode,
+      revealed
     };
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
     } catch (e) {
       console.error("Error saving state", e);
     }
-  }, [screen, formation, playingStyle, lineup, reRolls, streak, history, currentDraw, selectedPlayer]);
+  }, [screen, formation, playingStyle, lineup, reRolls, streak, history, currentDraw, selectedPlayer, gameMode, revealed]);
 
   // Calcula estatísticas gerais da equipe atual
   const teamStats = getTeamRatings(lineup);
@@ -63,6 +67,7 @@ export default function App() {
     setHistory([]);
     setCurrentDraw(null);
     setSelectedPlayer(null);
+    setRevealed(false);
     setScreen('draft');
   };
 
@@ -447,6 +452,8 @@ export default function App() {
             playingStyle={playingStyle}
             setPlayingStyle={setPlayingStyle}
             onStart={handleStartGame}
+            gameMode={gameMode}
+            setGameMode={setGameMode}
           />
         )}
 
@@ -458,6 +465,8 @@ export default function App() {
                 lineup={lineup}
                 activePlayer={selectedPlayer}
                 onSelectSlot={handleSelectSlot}
+                gameMode={gameMode}
+                revealed={revealed}
               />
             </div>
             <div className="draft-right-col">
@@ -473,9 +482,12 @@ export default function App() {
                 setSelectedPlayer={setSelectedPlayer}
                 teamStats={teamStats}
                 isComplete={isLineupComplete()}
+                gameMode={gameMode}
+                revealed={revealed}
+                setRevealed={setRevealed}
               />
               
-              {isLineupComplete() && (
+              {isLineupComplete() && (gameMode !== 'craque' || revealed) && (
                 <button className="go-simulate-btn animate-pulse" onClick={handleStartSimulation}>
                   INICIAR SIMULAÇÃO DO INVICTO RUN ➔
                 </button>
