@@ -76,10 +76,39 @@ export function simulateMatch(userLineup, userStyle, opponent) {
   const userForm = Math.floor(Math.random() * 7) - 3;
   const oppForm = Math.floor(Math.random() * 7) - 3;
 
+  let oppAttVal = opponent.att;
+  let oppDefVal = opponent.def;
+  let oppOverallVal = opponent.overall;
+
+  if (oppAttVal === undefined || oppDefVal === undefined || oppOverallVal === undefined) {
+    let attSum = 0, defSum = 0;
+    let attCount = 0, defCount = 0;
+    let totalSum = 0;
+    const squad = opponent.squad || [];
+
+    squad.forEach(p => {
+      totalSum += p.force;
+      const isDef = p.positions.some(pos => ["GOL", "ZAG", "LD", "LE", "VOL"].includes(pos));
+      if (isDef) {
+        const isGK = p.positions.includes("GOL");
+        const weight = isGK ? 2 : 1;
+        defSum += p.force * weight;
+        defCount += weight;
+      } else {
+        attSum += p.force;
+        attCount++;
+      }
+    });
+
+    oppAttVal = attCount > 0 ? Math.round(attSum / attCount) : 75;
+    oppDefVal = defCount > 0 ? Math.round(defSum / defCount) : 75;
+    oppOverallVal = squad.length > 0 ? Math.round(totalSum / squad.length) : 75;
+  }
+
   let userAtt = userStats.att + userForm;
   let userDef = userStats.def + userForm;
-  let oppAtt = opponent.att + oppForm;
-  let oppDef = opponent.def + oppForm;
+  let oppAtt = oppAttVal + oppForm;
+  let oppDef = oppDefVal + oppForm;
 
   // Ajusta por estilo de jogo do usuário
   if (userStyle === "attacking") {
@@ -91,7 +120,7 @@ export function simulateMatch(userLineup, userStyle, opponent) {
   }
 
   // Diferença de overall (meio-campo) afetando o volume de jogo (baseChance)
-  const overallDiff = userStats.overall - opponent.overall;
+  const overallDiff = userStats.overall - oppOverallVal;
   const userVolMod = Math.max(0.6, Math.min(1.4, 1 + (overallDiff * 0.015)));
   const oppVolMod = Math.max(0.6, Math.min(1.4, 1 - (overallDiff * 0.015)));
 

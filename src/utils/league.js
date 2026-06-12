@@ -41,12 +41,16 @@ export function selectLeagueOpponents() {
   
   for (const team of shuffled) {
     if (!selectedClubs.has(team.name)) {
+      const attrs = getTeamAttributes(team);
       selected.push({
         id: team.id,
         name: team.name,
         year: team.year,
         flag: team.flag,
-        squad: team.squad
+        squad: team.squad,
+        att: attrs.att,
+        def: attrs.def,
+        overall: attrs.overall
       });
       selectedClubs.add(team.name);
     }
@@ -57,12 +61,16 @@ export function selectLeagueOpponents() {
   if (selected.length < 19) {
     for (const team of shuffled) {
       if (!selected.some(t => t.id === team.id)) {
+        const attrs = getTeamAttributes(team);
         selected.push({
           id: team.id,
           name: team.name,
           year: team.year,
           flag: team.flag,
-          squad: team.squad
+          squad: team.squad,
+          att: attrs.att,
+          def: attrs.def,
+          overall: attrs.overall
         });
       }
       if (selected.length === 19) break;
