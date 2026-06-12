@@ -13,7 +13,20 @@ const STYLES = [
   { id: 'defensive', name: 'Defensivo', desc: 'Defesa +5% | Ataque -4% (Jogo fechado e seguro)' }
 ];
 
-export default function MainMenu({ formation, setFormation, playingStyle, setPlayingStyle, onStart }) {
+const MODES = [
+  { id: 'normal', name: 'Normal', desc: 'Atributos e médias visíveis durante todo o draft' },
+  { id: 'craque', name: 'Modo Craque ✨', desc: 'Atributos e médias ocultos por 🔒 até fechar os 11 titulares' }
+];
+
+export default function MainMenu({
+  formation,
+  setFormation = () => {},
+  playingStyle,
+  setPlayingStyle = () => {},
+  gameMode = 'normal',
+  setGameMode = () => {},
+  onStart = () => {}
+}) {
   return (
     <div className="menu-container">
       <div className="menu-logo">
@@ -49,6 +62,22 @@ export default function MainMenu({ formation, setFormation, playingStyle, setPla
             >
               <div className="option-title">{s.name}</div>
               <div className="option-desc">{s.desc}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="menu-section">
+        <h3>3. Escolha o Modo de Jogo</h3>
+        <div className="options-grid">
+          {MODES.map(m => (
+            <button
+              key={m.id}
+              className={`menu-option-card ${gameMode === m.id ? 'active' : ''}`}
+              onClick={() => setGameMode(m.id)}
+            >
+              <div className="option-title">{m.name}</div>
+              <div className="option-desc">{m.desc}</div>
             </button>
           ))}
         </div>
