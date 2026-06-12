@@ -302,5 +302,309 @@ export const BR_TEAMS = [
       { id: "sobis-2006", name: "Rafael Sóbis", positions: ["CA", "PD"], number: 11, force: 86, legend: true },
       { id: "iarley-2006", name: "Iarley", positions: ["CA", "PE"], number: 18, force: 82, legend: false }
     ]
+  },
+  {
+    id: "gremio-2017",
+    name: "Grêmio",
+    year: 2017,
+    flag: "🔵",
+    squad: [
+      { id: "grohe-2017", name: "Marcelo Grohe", positions: ["GOL"], number: 1, force: 86, legend: true },
+      { id: "edilson-2017", name: "Edilson", positions: ["LD"], number: 2, force: 80, legend: false },
+      { id: "geromel-2017", name: "Pedro Geromel", positions: ["ZAG"], number: 3, force: 87, legend: true },
+      { id: "kannemann-2017", name: "Walter Kannemann", positions: ["ZAG"], number: 4, force: 85, legend: false },
+      { id: "cortez-2017", name: "Bruno Cortez", positions: ["LE"], number: 6, force: 78, legend: false },
+      { id: "arthur-2017", name: "Arthur", positions: ["MC", "VOL"], number: 8, force: 86, legend: true },
+      { id: "jailson-2017", name: "Jailson", positions: ["VOL"], number: 5, force: 79, legend: false },
+      { id: "ramiro-2017", name: "Ramiro", positions: ["MC", "PD"], number: 17, force: 80, legend: false },
+      { id: "luan-2017", name: "Luan", positions: ["MEI", "CA"], number: 7, force: 89, legend: true },
+      { id: "fernandinho-2017", name: "Fernandinho", positions: ["PE", "PD"], number: 11, force: 81, legend: false },
+      { id: "barrios-2017", name: "Lucas Barrios", positions: ["CA"], number: 18, force: 82, legend: false }
+    ]
+  },
+  {
+    id: "vasco-2011",
+    name: "Vasco",
+    year: 2011,
+    flag: "💢",
+    squad: [
+      { id: "prass-2011", name: "Fernando Prass", positions: ["GOL"], number: 1, force: 83, legend: false },
+      { id: "fagner-2011", name: "Fagner", positions: ["LD"], number: 2, force: 82, legend: false },
+      { id: "dede-2011", name: "Dedé", positions: ["ZAG"], number: 3, force: 87, legend: true },
+      { id: "anderson-2011", name: "Anderson Martins", positions: ["ZAG"], number: 4, force: 82, legend: false },
+      { id: "ramon-2011", name: "Ramon", positions: ["LE"], number: 6, force: 79, legend: false },
+      { id: "romulo-2011", name: "Rômulo", positions: ["VOL"], number: 5, force: 81, legend: false },
+      { id: "jumar-2011", name: "Jumar", positions: ["VOL", "MC"], number: 8, force: 77, legend: false },
+      { id: "allan-2011", name: "Allan", positions: ["MC", "LD"], number: 15, force: 80, legend: false },
+      { id: "felipe-2011", name: "Felipe", positions: ["MEI", "LE"], number: 6, force: 85, legend: true },
+      { id: "diego-souza-2011", name: "Diego Souza", positions: ["MEI", "CA"], number: 10, force: 86, legend: true },
+      { id: "aleandro-2011", name: "Alecsandro", positions: ["CA"], number: 9, force: 81, legend: false }
+    ]
+  },
+  {
+    id: "athletico-2019",
+    name: "Athletico-PR",
+    year: 2019,
+    flag: "🌪️",
+    squad: [
+      { id: "santos-2019", name: "Santos", positions: ["GOL"], number: 1, force: 84, legend: false },
+      { id: "madson-2019", name: "Madson", positions: ["LD"], number: 2, force: 79, legend: false },
+      { id: "heleno-2019", name: "Thiago Heleno", positions: ["ZAG"], number: 44, force: 83, legend: false },
+      { id: "pereira-2019", name: "Léo Pereira", positions: ["ZAG"], number: 4, force: 81, legend: false },
+      { id: "azevedo-2019", name: "Márcio Azevedo", positions: ["LE"], number: 6, force: 78, legend: false },
+      { id: "wellington-2019", name: "Wellington", positions: ["VOL"], number: 5, force: 79, legend: false },
+      { id: "bruno-g-2019", name: "Bruno Guimarães", positions: ["MC"], number: 39, force: 86, legend: true },
+      { id: "cittadini-2019", name: "Léo Cittadini", positions: ["MC", "MEI"], number: 18, force: 80, legend: false },
+      { id: "nikao-2019", name: "Nikão", positions: ["PD", "MEI"], number: 11, force: 84, legend: true },
+      { id: "rony-2019", name: "Rony", positions: ["PE", "PD"], number: 7, force: 82, legend: false },
+      { id: "ruben-2019", name: "Marco Ruben", positions: ["CA"], number: 9, force: 83, legend: false }
+    ]
+  },
+  {
+    id: "bahia-1988",
+    name: "Bahia",
+    year: 1988,
+    flag: "🇧🇦",
+    squad: [
+      { id: "ronaldo-1988", name: "Ronaldo", positions: ["GOL"], number: 1, force: 82, legend: false },
+      { id: "tarantini-1988", name: "Tarantini", positions: ["LD"], number: 2, force: 79, legend: false },
+      { id: "marcelo-1988", name: "João Marcelo", positions: ["ZAG"], number: 3, force: 81, legend: false },
+      { id: "claudir-1988", name: "Claudir", positions: ["ZAG"], number: 4, force: 80, legend: false },
+      { id: "robson-1988", name: "Paulo Robson", positions: ["LE"], number: 6, force: 79, legend: false },
+      { id: "rodrigues-1988", name: "Paulo Rodrigues", positions: ["VOL"], number: 5, force: 80, legend: false },
+      { id: "sergipano-1988", name: "Gil Sergipano", positions: ["MC"], number: 8, force: 81, legend: false },
+      { id: "bobo-1988", name: "Bobô", positions: ["MEI"], number: 10, force: 88, legend: true },
+      { id: "zecarlos-1988", name: "Zé Carlos", positions: ["MEI", "PD"], number: 7, force: 82, legend: false },
+      { id: "charles-1988", name: "Charles", positions: ["CA"], number: 9, force: 84, legend: true },
+      { id: "marquinhos-1988", name: "Marquinhos", positions: ["PE"], number: 11, force: 80, legend: false }
+    ]
+  },
+  {
+    id: "fortaleza-2023",
+    name: "Fortaleza",
+    year: 2023,
+    flag: "🦁",
+    squad: [
+      { id: "ricardo-2023", name: "João Ricardo", positions: ["GOL"], number: 1, force: 81, legend: false },
+      { id: "tinga-2023", name: "Tinga", positions: ["LD", "ZAG"], number: 2, force: 81, legend: false },
+      { id: "britez-2023", name: "Emanuel Brítez", positions: ["ZAG", "LD"], number: 19, force: 80, legend: false },
+      { id: "titi-2023", name: "Titi", positions: ["ZAG"], number: 4, force: 79, legend: false },
+      { id: "pacheco-2023", name: "Bruno Pacheco", positions: ["LE"], number: 6, force: 80, legend: false },
+      { id: "welison-2023", name: "Zé Welison", positions: ["VOL"], number: 17, force: 79, legend: false },
+      { id: "alexandre-2023", name: "Caio Alexandre", positions: ["MC", "VOL"], number: 8, force: 81, legend: false },
+      { id: "pochettino-2023", name: "Tomás Pochettino", positions: ["MEI", "MC"], number: 7, force: 82, legend: false },
+      { id: "marinho-2023", name: "Marinho", positions: ["PD"], number: 12, force: 81, legend: false },
+      { id: "guilherme-2023", name: "Guilherme", positions: ["PE"], number: 29, force: 79, legend: false },
+      { id: "lucero-2023", name: "Juan Martín Lucero", positions: ["CA"], number: 9, force: 83, legend: false }
+    ]
+  },
+  {
+    id: "goias-2005",
+    name: "Goiás",
+    year: 2005,
+    flag: "🟢",
+    squad: [
+      { id: "harlei-2005", name: "Harlei", positions: ["GOL"], number: 1, force: 84, legend: false },
+      { id: "dias-2005", name: "Rafael Dias", positions: ["LD"], number: 2, force: 77, legend: false },
+      { id: "leone-2005", name: "André Leone", positions: ["ZAG"], number: 3, force: 80, legend: false },
+      { id: "wescley-2005", name: "Wescley", positions: ["ZAG"], number: 4, force: 78, legend: false },
+      { id: "jadilson-2005", name: "Jadílson", positions: ["LE"], number: 6, force: 82, legend: false },
+      { id: "cleber-2005", name: "Cléber Gaúcho", positions: ["VOL"], number: 5, force: 79, legend: false },
+      { id: "amaral-2005", name: "Amaral", positions: ["VOL"], number: 8, force: 78, legend: false },
+      { id: "tabata-2005", name: "Rodrigo Tabata", positions: ["MEI"], number: 10, force: 83, legend: false },
+      { id: "danilo-2005", name: "Danilo", positions: ["MEI", "PE"], number: 7, force: 81, legend: false },
+      { id: "roni-2005", name: "Roni", positions: ["CA"], number: 9, force: 80, legend: false },
+      { id: "souza-2005", name: "Souza", positions: ["CA"], number: 11, force: 85, legend: true }
+    ]
+  },
+  {
+    id: "sport-2008",
+    name: "Sport",
+    year: 2008,
+    flag: "🦁",
+    squad: [
+      { id: "magrao-2008", name: "Magrão", positions: ["GOL"], number: 1, force: 84, legend: false },
+      { id: "diogo-2008", name: "Diogo", positions: ["LD"], number: 2, force: 77, legend: false },
+      { id: "igor-2008", name: "Igor", positions: ["ZAG"], number: 3, force: 79, legend: false },
+      { id: "durval-2008", name: "Durval", positions: ["ZAG"], number: 4, force: 83, legend: true },
+      { id: "dutra-2008", name: "Dutra", positions: ["LE"], number: 6, force: 80, legend: false },
+      { id: "paulista-2008", name: "Daniel Paulista", positions: ["VOL"], number: 5, force: 79, legend: false },
+      { id: "goiano-2008", name: "Sandro Goiano", positions: ["VOL"], number: 8, force: 78, legend: false },
+      { id: "kassio-2008", name: "Kássio", positions: ["MC", "MEI"], number: 17, force: 77, legend: false },
+      { id: "bala-2008", name: "Carlinhos Bala", positions: ["MEI", "PD"], number: 11, force: 84, legend: true },
+      { id: "enilton-2008", name: "Enílton", positions: ["CA"], number: 9, force: 79, legend: false },
+      { id: "machado-2008", name: "Leandro Machado", positions: ["CA"], number: 99, force: 81, legend: false }
+    ]
+  },
+  {
+    id: "vitoria-2013",
+    name: "Vitória",
+    year: 2013,
+    flag: "🦁",
+    squad: [
+      { id: "wilson-2013", name: "Wilson", positions: ["GOL"], number: 1, force: 81, legend: false },
+      { id: "ayrton-2013", name: "Ayrton", positions: ["LD"], number: 2, force: 78, legend: false },
+      { id: "vramos-2013", name: "Victor Ramos", positions: ["ZAG"], number: 3, force: 79, legend: false },
+      { id: "kadu-2013", name: "Kadu", positions: ["ZAG"], number: 4, force: 78, legend: false },
+      { id: "juan-2013", name: "Juan", positions: ["LE"], number: 6, force: 81, legend: false },
+      { id: "caceres-2013", name: "Cáceres", positions: ["VOL"], number: 5, force: 80, legend: false },
+      { id: "lcaceres-2013", name: "Luis Cáceres", positions: ["MC"], number: 8, force: 79, legend: false },
+      { id: "escudero-2013", name: "Damián Escudero", positions: ["MEI"], number: 10, force: 83, legend: false },
+      { id: "marquinhos-2013", name: "Marquinhos", positions: ["PD", "PE"], number: 7, force: 81, legend: false },
+      { id: "biancucchi-2013", name: "Maxi Biancucchi", positions: ["PE", "CA"], number: 11, force: 82, legend: false },
+      { id: "dinei-2013", name: "Dinei", positions: ["CA"], number: 9, force: 82, legend: false }
+    ]
+  },
+  {
+    id: "guarani-1978",
+    name: "Guarani",
+    year: 1978,
+    flag: "🏹",
+    squad: [
+      { id: "neneca-1978", name: "Neneca", positions: ["GOL"], number: 1, force: 83, legend: false },
+      { id: "mauro-1978", name: "Mauro", positions: ["LD"], number: 2, force: 79, legend: false },
+      { id: "gomes-1978", name: "Gomes", positions: ["ZAG"], number: 3, force: 81, legend: false },
+      { id: "edson-1978", name: "Edson", positions: ["ZAG"], number: 4, force: 80, legend: false },
+      { id: "miranda-1978", name: "Miranda", positions: ["LE"], number: 6, force: 80, legend: false },
+      { id: "zecarlos-1978", name: "Zé Carlos", positions: ["VOL"], number: 5, force: 82, legend: false },
+      { id: "renato-1978", name: "Renato", positions: ["MC", "MEI"], number: 8, force: 85, legend: true },
+      { id: "zenon-1978", name: "Zenon", positions: ["MEI"], number: 10, force: 87, legend: true },
+      { id: "capitao-1978", name: "Capitão", positions: ["PD"], number: 7, force: 80, legend: false },
+      { id: "careca-1978", name: "Careca", positions: ["CA"], number: 9, force: 90, legend: true },
+      { id: "bozo-1978", name: "Bozó", positions: ["PE"], number: 11, force: 81, legend: false }
+    ]
+  },
+  {
+    id: "coritiba-2011",
+    name: "Coritiba",
+    year: 2011,
+    flag: "🟢",
+    squad: [
+      { id: "bastos-2011", name: "Edson Bastos", positions: ["GOL"], number: 1, force: 80, legend: false },
+      { id: "jonas-2011", name: "Jonas", positions: ["LD"], number: 2, force: 79, legend: false },
+      { id: "jeci-2011", name: "Jeci", positions: ["ZAG"], number: 3, force: 78, legend: false },
+      { id: "emerson-2011", name: "Emerson", positions: ["ZAG"], number: 4, force: 80, legend: false },
+      { id: "mendes-2011", name: "Lucas Mendes", positions: ["LE", "ZAG"], number: 6, force: 79, legend: false },
+      { id: "willian-2011", name: "Willian Farias", positions: ["VOL"], number: 5, force: 79, legend: false },
+      { id: "gago-2011", name: "Léo Gago", positions: ["VOL", "MC"], number: 8, force: 79, legend: false },
+      { id: "rafinha-2011", name: "Rafinha", positions: ["MEI", "PE"], number: 7, force: 85, legend: true },
+      { id: "davi-2011", name: "Davi", positions: ["MEI"], number: 10, force: 81, legend: false },
+      { id: "maurelio-2011", name: "Marcos Aurélio", positions: ["PE", "CA"], number: 11, force: 81, legend: false },
+      { id: "bill-2011", name: "Bill", positions: ["CA"], number: 9, force: 80, legend: false }
+    ]
+  },
+  {
+    id: "bragantino-2021",
+    name: "Bragantino",
+    year: 2021,
+    flag: "🐂",
+    squad: [
+      { id: "cleiton-2021", name: "Cleiton", positions: ["GOL"], number: 18, force: 81, legend: false },
+      { id: "aderlan-2021", name: "Aderlan", positions: ["LD"], number: 2, force: 79, legend: false },
+      { id: "ortiz-2021", name: "Léo Ortiz", positions: ["ZAG"], number: 3, force: 84, legend: true },
+      { id: "fbruno-2021", name: "Fabrício Bruno", positions: ["ZAG"], number: 14, force: 82, legend: false },
+      { id: "candido-2021", name: "Luan Cândido", positions: ["LE"], number: 6, force: 80, legend: false },
+      { id: "jadsom-2021", name: "Jadsom", positions: ["VOL"], number: 5, force: 78, legend: false },
+      { id: "evangelista-2021", name: "Lucas Evangelista", positions: ["MC"], number: 8, force: 81, legend: false },
+      { id: "praxedes-2021", name: "Praxedes", positions: ["MEI", "MC"], number: 25, force: 80, legend: false },
+      { id: "artur-2021", name: "Artur", positions: ["PD"], number: 7, force: 85, legend: true },
+      { id: "helinho-2021", name: "Helinho", positions: ["PE", "PD"], number: 11, force: 80, legend: false },
+      { id: "ytalo-2021", name: "Ytalo", positions: ["CA"], number: 15, force: 81, legend: false }
+    ]
+  },
+  {
+    id: "chapecoense-2016",
+    name: "Chapecoense",
+    year: 2016,
+    flag: "🟢",
+    squad: [
+      { id: "danilo-2016", name: "Danilo", positions: ["GOL"], number: 1, force: 85, legend: true },
+      { id: "gimenez-2016", name: "Gimenez", positions: ["LD"], number: 2, force: 78, legend: false },
+      { id: "neto-2016", name: "Neto", positions: ["ZAG"], number: 4, force: 82, legend: false },
+      { id: "thiego-2016", name: "Thiego", positions: ["ZAG"], number: 3, force: 81, legend: false },
+      { id: "dener-2016", name: "Dener", positions: ["LE"], number: 6, force: 80, legend: false },
+      { id: "josimar-2016", name: "Josimar", positions: ["VOL"], number: 5, force: 79, legend: false },
+      { id: "gil-2016", name: "Gil", positions: ["VOL", "MC"], number: 8, force: 79, legend: false },
+      { id: "csantana-2016", name: "Cleber Santana", positions: ["MEI", "MC"], number: 88, force: 84, legend: true },
+      { id: "ananias-2016", name: "Ananias", positions: ["PD", "MEI"], number: 11, force: 80, legend: false },
+      { id: "lgomes-2016", name: "Lucas Gomes", positions: ["PE"], number: 7, force: 80, legend: false },
+      { id: "kempes-2016", name: "Kempes", positions: ["CA"], number: 9, force: 81, legend: false }
+    ]
+  },
+  {
+    id: "criciuma-1991",
+    name: "Criciúma",
+    year: 1991,
+    flag: "🐯",
+    squad: [
+      { id: "alexandre-1991", name: "Alexandre", positions: ["GOL"], number: 1, force: 80, legend: false },
+      { id: "sarandi-1991", name: "Sarandi", positions: ["LD"], number: 2, force: 77, legend: false },
+      { id: "vilmar-1991", name: "Vilmar", positions: ["ZAG"], number: 3, force: 79, legend: false },
+      { id: "altair-1991", name: "Altair", positions: ["ZAG"], number: 4, force: 79, legend: false },
+      { id: "ita-1991", name: "Itá", positions: ["LE"], number: 6, force: 81, legend: false },
+      { id: "gelson-1991", name: "Gelson", positions: ["VOL"], number: 5, force: 80, legend: false },
+      { id: "rcavalo-1991", name: "Roberto Cavalo", positions: ["VOL"], number: 8, force: 82, legend: false },
+      { id: "zroberto-1991", name: "Zé Roberto", positions: ["MEI"], number: 7, force: 79, legend: false },
+      { id: "grizzo-1991", name: "Grizzo", positions: ["MEI"], number: 10, force: 84, legend: true },
+      { id: "jlenzi-1991", name: "Jairo Lenzi", positions: ["PE"], number: 11, force: 82, legend: false },
+      { id: "soares-1991", name: "Soares", positions: ["CA"], number: 9, force: 82, legend: false }
+    ]
+  },
+  {
+    id: "juventude-1999",
+    name: "Juventude",
+    year: 1999,
+    flag: "🟢",
+    squad: [
+      { id: "donizete-1999", name: "Donizete", positions: ["GOL"], number: 1, force: 79, legend: false },
+      { id: "teixeira-1999", name: "Marcos Teixeira", positions: ["LD"], number: 2, force: 77, legend: false },
+      { id: "capone-1999", name: "Capone", positions: ["ZAG"], number: 3, force: 81, legend: false },
+      { id: "picoli-1999", name: "Picoli", positions: ["ZAG"], number: 4, force: 80, legend: false },
+      { id: "edson-1999", name: "Édson", positions: ["LE"], number: 6, force: 78, legend: false },
+      { id: "roberto-1999", name: "Roberto", positions: ["VOL"], number: 5, force: 79, legend: false },
+      { id: "lauro-1999", name: "Lauro", positions: ["VOL", "MC"], number: 8, force: 80, legend: false },
+      { id: "wallace-1999", name: "Wallace", positions: ["MC"], number: 7, force: 78, legend: false },
+      { id: "mabilia-1999", name: "Mabília", positions: ["MEI"], number: 10, force: 81, legend: false },
+      { id: "mauricio-1999", name: "Maurício", positions: ["CA"], number: 9, force: 80, legend: false },
+      { id: "christian-1999", name: "Christian", positions: ["CA"], number: 11, force: 84, legend: true }
+    ]
+  },
+  {
+    id: "paysandu-2003",
+    name: "Paysandu",
+    year: 2003,
+    flag: "🛩️",
+    squad: [
+      { id: "ronaldo-2003", name: "Ronaldo", positions: ["GOL"], number: 1, force: 80, legend: false },
+      { id: "baiano-2003", name: "Baiano", positions: ["LD"], number: 2, force: 78, legend: false },
+      { id: "jorginho-2003", name: "Jorginho", positions: ["ZAG"], number: 3, force: 79, legend: false },
+      { id: "lima-2003", name: "Lima", positions: ["ZAG"], number: 4, force: 78, legend: false },
+      { id: "souza-2003", name: "Souza", positions: ["LE"], number: 6, force: 78, legend: false },
+      { id: "sandro-2003", name: "Sandro", positions: ["VOL"], number: 5, force: 80, legend: false },
+      { id: "vanderson-2003", name: "Vânderson", positions: ["VOL"], number: 8, force: 81, legend: false },
+      { id: "harison-2003", name: "Harison", positions: ["MEI"], number: 7, force: 80, legend: false },
+      { id: "welber-2003", name: "Welber", positions: ["MEI", "PD"], number: 11, force: 80, legend: false },
+      { id: "iarley-2003", name: "Iarley", positions: ["CA", "PE"], number: 10, force: 85, legend: true },
+      { id: "robgol-2003", name: "Robgol", positions: ["CA"], number: 9, force: 84, legend: true }
+    ]
+  },
+  {
+    id: "ceara-2020",
+    name: "Ceará",
+    year: 2020,
+    flag: "🏁",
+    squad: [
+      { id: "richard-2020", name: "Richard", positions: ["GOL"], number: 91, force: 80, legend: false },
+      { id: "xavier-2020", name: "Samuel Xavier", positions: ["LD"], number: 22, force: 80, legend: false },
+      { id: "pagnussat-2020", name: "Tiago Pagnussat", positions: ["ZAG"], number: 36, force: 79, legend: false },
+      { id: "lotavio-2020", name: "Luiz Otávio", positions: ["ZAG"], number: 3, force: 81, legend: false },
+      { id: "bpacheco-2020", name: "Bruno Pacheco", positions: ["LE"], number: 6, force: 80, legend: false },
+      { id: "sobral-2020", name: "Fernando Sobral", positions: ["VOL", "MC"], number: 88, force: 81, legend: false },
+      { id: "charles-2020", name: "Charles", positions: ["VOL"], number: 35, force: 79, legend: false },
+      { id: "vina-2020", name: "Vina", positions: ["MEI"], number: 29, force: 86, legend: true },
+      { id: "lima-2020", name: "Lima", positions: ["MEI", "PE", "PD"], number: 45, force: 80, legend: false },
+      { id: "chu-2020", name: "Léo Chú", positions: ["PE"], number: 26, force: 79, legend: false },
+      { id: "cleber-2020", name: "Cléber", positions: ["CA"], number: 39, force: 80, legend: false }
+    ]
   }
 ];
