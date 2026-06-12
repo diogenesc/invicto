@@ -81,7 +81,7 @@ const SLOT_LABEL_MAP = {
   CA2: 'CA'
 };
 
-export default function SoccerField({ formation, lineup, activePlayer, onSelectSlot }) {
+export default function SoccerField({ formation, lineup, activePlayer, onSelectSlot, gameMode = 'normal', revealed = false }) {
   const coordinates = POSITION_COORDINATES[formation] || POSITION_COORDINATES['4-3-3'];
   const slots = Object.keys(coordinates);
 
@@ -120,7 +120,9 @@ export default function SoccerField({ formation, lineup, activePlayer, onSelectS
           >
             {player ? (
               <div className="player-badge">
-                <span className="player-force">{player.force}</span>
+                <span className="player-force">
+                  {gameMode === 'craque' && !revealed ? '🔒' : player.force}
+                </span>
                 <span className="player-name">{player.name}</span>
                 <span className="player-club-year">{player.flag} {player.year}</span>
               </div>
