@@ -19,7 +19,10 @@ export default function PlayerDraft({
   selectedPlayer,
   setSelectedPlayer,
   teamStats,
-  isComplete
+  isComplete,
+  gameMode = 'normal',
+  revealed = false,
+  setRevealed
 }) {
   const getSlotStructure = () => {
     // Retorna os slots da formação atual para exibir no Box Score
@@ -52,8 +55,29 @@ export default function PlayerDraft({
     <div className="draft-panel">
       {/* Se o time estiver 100% completo, não permite mais sorteios */}
       {isComplete ? (
-        <div className="complete-action-container">
+        <div className="complete-action-container" style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
           <p className="draft-instruction success-text">🏆 Elenco completo e pronto para ir a campo!</p>
+          {gameMode === 'craque' && !revealed && (
+            <button 
+              className="reveal-force-btn animate-pulse" 
+              onClick={() => setRevealed(true)}
+              style={{
+                background: 'linear-gradient(90deg, #eab308, #ca8a04)',
+                color: '#052e16',
+                fontWeight: 'bold',
+                padding: '15px',
+                width: '100%',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '16px',
+                boxShadow: '0 4px 12px rgba(234, 179, 8, 0.3)',
+                marginTop: '10px'
+              }}
+            >
+              ✨ REVELAR FORÇA DO ELENCO ✨
+            </button>
+          )}
         </div>
       ) : (
         /* Sorteio Atual ou Botão de Roll */
@@ -117,7 +141,9 @@ export default function PlayerDraft({
                         {player.positions.join(' / ')}
                       </span>
                     </div>
-                    <div className="player-card-force">{player.force}</div>
+                    <div className="player-card-force">
+                      {gameMode === 'craque' && !revealed ? '🔒' : player.force}
+                    </div>
                   </button>
                 );
               })}
@@ -130,16 +156,22 @@ export default function PlayerDraft({
       <div className="box-score">
         <div className="box-score-summary-header">
           <span className="box-score-title">Sumário do Time · {escaladosCount}/11</span>
-          <span className="box-score-total-rating">{teamStats.overall} rating</span>
+          <span className="box-score-total-rating">
+            {gameMode === 'craque' && !revealed ? '??' : teamStats.overall} rating
+          </span>
         </div>
 
         <div className="box-score-ratings">
           <div className="rating-block">
-            <span className="rating-val">{teamStats.att}</span>
+            <span className="rating-val">
+              {gameMode === 'craque' && !revealed ? '??' : teamStats.att}
+            </span>
             <span className="rating-label">ataque</span>
           </div>
           <div className="rating-block">
-            <span className="rating-val">{teamStats.def}</span>
+            <span className="rating-val">
+              {gameMode === 'craque' && !revealed ? '??' : teamStats.def}
+            </span>
             <span className="rating-label">defesa</span>
           </div>
         </div>
@@ -154,7 +186,9 @@ export default function PlayerDraft({
                   <tr key={slot} className={player ? 'filled-row' : 'empty-row'}>
                     <td className="pos">{label}</td>
                     <td className="name">{player ? player.name : '—'}</td>
-                    <td className="force">{player ? player.force : ''}</td>
+                    <td className="force">
+                      {player ? (gameMode === 'craque' && !revealed ? '🔒' : player.force) : ''}
+                    </td>
                   </tr>
                 );
               })}
