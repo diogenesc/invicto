@@ -8,7 +8,8 @@ export default function MatchEngine({
   onMatchWin,
   onMatchLoss,
   campaignMode = 'streak',
-  onFinishLeagueMatch = () => {}
+  onFinishLeagueMatch = () => {},
+  leagueOpponent = null
 }) {
   const [opponent, setOpponent] = useState(null);
   const [matchResult, setMatchResult] = useState(null);
@@ -31,7 +32,7 @@ export default function MatchEngine({
 
   // Carrega o oponente no início
   useEffect(() => {
-    const opp = generateOpponent();
+    const opp = (campaignMode === 'league' && leagueOpponent) ? leagueOpponent : generateOpponent();
     setOpponent(opp);
     
     // Simula a partida nos bastidores e guarda o resultado
@@ -45,7 +46,7 @@ export default function MatchEngine({
     setUserScore(0);
     setOppScore(0);
     setIsSimulating(false);
-  }, [lineup, playingStyle, streak]);
+  }, [lineup, playingStyle, streak, campaignMode, leagueOpponent]);
 
   // Scrolla automaticamente para o final do log de eventos
   useEffect(() => {

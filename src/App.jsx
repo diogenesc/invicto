@@ -560,6 +560,12 @@ export default function App() {
     }
   };
 
+  const currentRoundMatches = leagueSchedule[currentRound] || [];
+  const userMatchInfo = currentRoundMatches.find(m => m.home.id === 'user' || m.away.id === 'user');
+  const currentLeagueOpponent = userMatchInfo
+    ? (userMatchInfo.home.id === 'user' ? userMatchInfo.away : userMatchInfo.home)
+    : null;
+
   return (
     <div className="app-layout">
       {/* Header global */}
@@ -646,6 +652,7 @@ export default function App() {
             onMatchLoss={handleMatchLoss}
             campaignMode={campaignMode}
             onFinishLeagueMatch={handleFinishLeagueMatch}
+            leagueOpponent={currentLeagueOpponent}
           />
         )}
 
