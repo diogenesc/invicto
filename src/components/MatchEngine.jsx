@@ -35,8 +35,7 @@ export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, 
     setVisibleEvents([]);
     setUserScore(0);
     setOppScore(0);
-    const savedMode = localStorage.getItem('invicto_sim_mode') || 'auto';
-    setIsSimulating(savedMode === 'auto');
+    setIsSimulating(false);
   }, [lineup, playingStyle, streak]);
 
   // Scrolla automaticamente para o final do log de eventos
