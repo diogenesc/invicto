@@ -653,6 +653,7 @@ export default function App() {
             campaignMode={campaignMode}
             onFinishLeagueMatch={handleFinishLeagueMatch}
             leagueOpponent={currentLeagueOpponent}
+            currentRound={currentRound}
           />
         )}
 

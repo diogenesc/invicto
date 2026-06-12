@@ -9,7 +9,8 @@ export default function MatchEngine({
   onMatchLoss,
   campaignMode = 'streak',
   onFinishLeagueMatch = () => {},
-  leagueOpponent = null
+  leagueOpponent = null,
+  currentRound = 0
 }) {
   const [opponent, setOpponent] = useState(null);
   const [matchResult, setMatchResult] = useState(null);
@@ -146,7 +147,9 @@ export default function MatchEngine({
       {/* Placar de Estádio */}
       <div className="match-scoreboard">
         <div className="scoreboard-title">
-          RODADA {streak + 1} · INVICTO RUN
+          {campaignMode === 'league'
+            ? `RODADA ${currentRound + 1} · BRASILEIRÃO`
+            : `RODADA ${streak + 1} · INVICTO RUN`}
         </div>
         <div className="scoreboard-flex">
           <div className="score-team user">
@@ -203,14 +206,30 @@ export default function MatchEngine({
           </>
         ) : (
           <div className="match-completion-card">
-            {userScore >= oppScore ? (
-              <div className="outcome-alert success">
-                🎉 INVICTO! Você sobreviveu à rodada!
-              </div>
+            {campaignMode === 'league' ? (
+              userScore > oppScore ? (
+                <div className="outcome-alert success">
+                  🎉 VITÓRIA! Mais 3 pontos na tabela!
+                </div>
+              ) : userScore === oppScore ? (
+                <div className="outcome-alert success">
+                  🤝 EMPATE! 1 ponto para cada lado.
+                </div>
+              ) : (
+                <div className="outcome-alert failure">
+                  ✕ DERROTA! Nenhum ponto somado nesta rodada.
+                </div>
+              )
             ) : (
-              <div className="outcome-alert failure">
-                ✕ DERROTA! O oponente derrubou sua invencibilidade.
-              </div>
+              userScore >= oppScore ? (
+                <div className="outcome-alert success">
+                  🎉 INVICTO! Você sobreviveu à rodada!
+                </div>
+              ) : (
+                <div className="outcome-alert failure">
+                  ✕ DERROTA! O oponente derrubou sua invencibilidade.
+                </div>
+              )
             )}
             <button className="finish-match-btn" onClick={handleFinishMatch}>
               {campaignMode === 'league'
