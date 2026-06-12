@@ -32,7 +32,8 @@ export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, 
 
     // Reset de estado
     setMinute(0);
-    setVisibleEvents([]);
+    const initialEvents = res ? res.events.filter(e => e.minute === 0) : [];
+    setVisibleEvents(initialEvents);
     setUserScore(0);
     setOppScore(0);
     setIsSimulating(false);

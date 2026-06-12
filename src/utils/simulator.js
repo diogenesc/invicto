@@ -18,8 +18,9 @@ export function getTeamRatings(lineup) {
     
     // Mapeamento dos slots do campo baseados em sua natureza defensiva/ofensiva
     if (["GK", "LB", "RB", "CB1", "CB2", "CB3", "DM", "VOL", "VOL1", "VOL2"].includes(slot)) {
-      defSum += p.force;
-      defCount++;
+      const weight = slot === "GK" ? 2 : 1;
+      defSum += p.force * weight;
+      defCount += weight;
     } else {
       attSum += p.force;
       attCount++;
@@ -46,8 +47,10 @@ export function generateOpponent(excludeIds = []) {
     totalSum += p.force;
     const isDef = p.positions.some(pos => ["GOL", "ZAG", "LD", "LE", "VOL"].includes(pos));
     if (isDef) {
-      defSum += p.force;
-      defCount++;
+      const isGK = p.positions.includes("GOL");
+      const weight = isGK ? 2 : 1;
+      defSum += p.force * weight;
+      defCount += weight;
     } else {
       attSum += p.force;
       attCount++;
@@ -69,10 +72,14 @@ export function generateOpponent(excludeIds = []) {
 export function simulateMatch(userLineup, userStyle, opponent) {
   const userStats = getTeamRatings(userLineup);
   
-  let userAtt = userStats.att;
-  let userDef = userStats.def;
-  let oppAtt = opponent.att;
-  let oppDef = opponent.def;
+  // Fator de oscilação do dia (entre -3 e +3 pontos de variação para cada equipe)
+  const userForm = Math.floor(Math.random() * 7) - 3;
+  const oppForm = Math.floor(Math.random() * 7) - 3;
+
+  let userAtt = userStats.att + userForm;
+  let userDef = userStats.def + userForm;
+  let oppAtt = opponent.att + oppForm;
+  let oppDef = opponent.def + oppForm;
 
   // Ajusta por estilo de jogo do usuário
   if (userStyle === "attacking") {
@@ -83,13 +90,38 @@ export function simulateMatch(userLineup, userStyle, opponent) {
     userAtt -= 4;
   }
 
+  // Diferença de overall (meio-campo) afetando o volume de jogo (baseChance)
+  const overallDiff = userStats.overall - opponent.overall;
+  const userVolMod = Math.max(0.6, Math.min(1.4, 1 + (overallDiff * 0.015)));
+  const oppVolMod = Math.max(0.6, Math.min(1.4, 1 - (overallDiff * 0.015)));
+
   const baseChance = 0.012; // Chance base por minuto
-  const userGoalChance = baseChance + (userAtt - oppDef) * 0.0006;
-  const oppGoalChance = baseChance + (oppAtt - userDef) * 0.0006;
+  
+  // Calcula a chance por minuto garantindo um piso mínimo (underdog floor) de 0.003
+  const userGoalChance = Math.max(0.003, (baseChance * userVolMod) + (userAtt - oppDef) * 0.0006);
+  const oppGoalChance = Math.max(0.003, (baseChance * oppVolMod) + (oppAtt - userDef) * 0.0006);
 
   const events = [];
   let userScore = 0;
   let oppScore = 0;
+
+  // Mensagem de estado/forma inicial (minuto 0)
+  let formText = "⚖️ Aquecimento concluído. A torcida canta alto e o jogo está prestes a começar!";
+  if (userForm >= 2 && oppForm <= -2) {
+    formText = "🔥 Pré-jogo: Seu time voa no aquecimento sob aplausos! O adversário parece nervoso e desorganizado.";
+  } else if (userForm >= 2) {
+    formText = "📈 Pré-jogo: Grande atmosfera! Seus jogadores demonstram muita confiança e entrosamento na preparação final.";
+  } else if (userForm <= -2) {
+    formText = "📉 Pré-jogo: Clima tenso! Erros bobos no aquecimento indicam que a equipe está sob forte pressão hoje.";
+  } else if (oppForm >= 2) {
+    formText = "⚠️ Pré-jogo: Olho neles! O time adversário faz um aquecimento impecável e focado sob vaias da torcida.";
+  }
+
+  events.push({
+    minute: 0,
+    type: "info",
+    text: formText
+  });
 
   // Filtra jogadores elegíveis para fazer gols no time do usuário (meio-campistas e atacantes)
   const userScorersPool = Object.entries(userLineup)
