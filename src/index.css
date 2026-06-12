@@ -726,6 +726,17 @@ button {
   100% { box-shadow: 0 0 0 0 rgba(0, 255, 135, 0); }
 }
 
+.animate-pulse-gold {
+  animation: pulse-glow-gold 2s infinite;
+}
+
+@keyframes pulse-glow-gold {
+  0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0.2); }
+  100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+}
+
+
 /* Match Engine & Simulation Screen */
 .match-container {
   width: 100%;

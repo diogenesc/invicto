@@ -22,8 +22,10 @@ export default function PlayerDraft({
   isComplete,
   gameMode = 'normal',
   revealed = false,
-  setRevealed
+  setRevealed = () => {}
 }) {
+  const shouldHideForce = gameMode === 'craque' && !revealed;
+
   const getSlotStructure = () => {
     // Retorna os slots da formação atual para exibir no Box Score
     if (formation === '4-4-2') return ['GK', 'LB', 'CB1', 'CB2', 'RB', 'VOL1', 'VOL2', 'MC', 'MEI', 'CA1', 'CA2'];
@@ -57,9 +59,9 @@ export default function PlayerDraft({
       {isComplete ? (
         <div className="complete-action-container" style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
           <p className="draft-instruction success-text">🏆 Elenco completo e pronto para ir a campo!</p>
-          {gameMode === 'craque' && !revealed && (
+          {shouldHideForce && (
             <button 
-              className="reveal-force-btn animate-pulse" 
+              className="reveal-force-btn animate-pulse-gold" 
               onClick={() => setRevealed(true)}
               style={{
                 background: 'linear-gradient(90deg, #eab308, #ca8a04)',
@@ -142,7 +144,7 @@ export default function PlayerDraft({
                       </span>
                     </div>
                     <div className="player-card-force">
-                      {gameMode === 'craque' && !revealed ? '🔒' : player.force}
+                      {shouldHideForce ? '🔒' : player.force}
                     </div>
                   </button>
                 );
@@ -157,20 +159,20 @@ export default function PlayerDraft({
         <div className="box-score-summary-header">
           <span className="box-score-title">Sumário do Time · {escaladosCount}/11</span>
           <span className="box-score-total-rating">
-            {gameMode === 'craque' && !revealed ? '??' : teamStats.overall} rating
+            {shouldHideForce ? '??' : teamStats.overall} rating
           </span>
         </div>
 
         <div className="box-score-ratings">
           <div className="rating-block">
             <span className="rating-val">
-              {gameMode === 'craque' && !revealed ? '??' : teamStats.att}
+              {shouldHideForce ? '??' : teamStats.att}
             </span>
             <span className="rating-label">ataque</span>
           </div>
           <div className="rating-block">
             <span className="rating-val">
-              {gameMode === 'craque' && !revealed ? '??' : teamStats.def}
+              {shouldHideForce ? '??' : teamStats.def}
             </span>
             <span className="rating-label">defesa</span>
           </div>
@@ -187,7 +189,7 @@ export default function PlayerDraft({
                     <td className="pos">{label}</td>
                     <td className="name">{player ? player.name : '—'}</td>
                     <td className="force">
-                      {player ? (gameMode === 'craque' && !revealed ? '🔒' : player.force) : ''}
+                      {player ? (shouldHideForce ? '🔒' : player.force) : ''}
                     </td>
                   </tr>
                 );
