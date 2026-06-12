@@ -9,8 +9,14 @@ export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, 
   const [userScore, setUserScore] = useState(0);
   const [oppScore, setOppScore] = useState(0);
   const [isSimulating, setIsSimulating] = useState(false);
-  const [speed, setSpeed] = useState(300); // ms por minuto virtual
-  const [mode, setMode] = useState('auto'); // 'manual' (click to reveal) ou 'auto'
+  const [speed, setSpeed] = useState(() => {
+    const saved = localStorage.getItem('invicto_sim_speed');
+    return saved ? Number(saved) : 200;
+  }); // ms por minuto virtual
+  const [mode, setMode] = useState(() => {
+    const saved = localStorage.getItem('invicto_sim_mode');
+    return saved || 'auto';
+  }); // 'manual' (click to reveal) ou 'auto'
 
   const timerRef = useRef(null);
   const eventsEndRef = useRef(null);
@@ -64,13 +70,20 @@ export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, 
     return () => clearTimeout(timerRef.current);
   }, [isSimulating, minute, matchResult, speed]);
 
+  const changeSpeed = (newSpeed) => {
+    setSpeed(newSpeed);
+    localStorage.setItem('invicto_sim_speed', newSpeed.toString());
+  };
+
   const handleStartAuto = () => {
     setMode('auto');
+    localStorage.setItem('invicto_sim_mode', 'auto');
     setIsSimulating(true);
   };
 
   const handleManualStep = () => {
     setMode('manual');
+    localStorage.setItem('invicto_sim_mode', 'manual');
     if (minute >= 90 || !matchResult) return;
 
     // Avança 5 minutos virtuais de cada vez no manual para não ficar exaustivo
@@ -165,10 +178,10 @@ export default function MatchEngine({ lineup, playingStyle, streak, onMatchWin, 
               <div className="control-group">
                 <span className="control-label">Velocidade:</span>
                 <div className="control-buttons-wrapper">
-                  <button className={`speed-btn ${speed === 400 ? 'active' : ''}`} onClick={() => setSpeed(400)}>Lento</button>
-                  <button className={`speed-btn ${speed === 200 ? 'active' : ''}`} onClick={() => setSpeed(200)}>Normal</button>
-                  <button className={`speed-btn ${speed === 80 ? 'active' : ''}`} onClick={() => setSpeed(80)}>Rápido</button>
-                  <button className={`speed-btn ${speed === 15 ? 'active' : ''}`} onClick={() => setSpeed(15)}>Ultra</button>
+                  <button className={`speed-btn ${speed === 400 ? 'active' : ''}`} onClick={() => changeSpeed(400)}>Lento</button>
+                  <button className={`speed-btn ${speed === 200 ? 'active' : ''}`} onClick={() => changeSpeed(200)}>Normal</button>
+                  <button className={`speed-btn ${speed === 80 ? 'active' : ''}`} onClick={() => changeSpeed(80)}>Rápido</button>
+                  <button className={`speed-btn ${speed === 15 ? 'active' : ''}`} onClick={() => changeSpeed(15)}>Ultra</button>
                 </div>
               </div>
             )}
